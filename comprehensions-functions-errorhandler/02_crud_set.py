@@ -27,7 +27,7 @@ print(set_countries) # {'mex', 'arg', 'col', 'clp', 'ecua'}
 #Cuando tratamos de eliminar un elemento que no existe, python muestra un error.
 #set_countries.remove('br')
 
-#Podemos descartar un elemento del conjunto (lo elimina y caso de no existir, el programa no se cae).
+#Podemos descartar un elemento del conjunto (lo elimina y en caso de no existir, el programa no se cae).
 set_countries.discard('br')
 print(set_countries) # {'mex', 'arg', 'clp', 'col', 'ecua'}
 set_countries.discard('ecua')
