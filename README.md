@@ -17,3 +17,15 @@ python3 comprehensions-functions-errorhandler/app/challenge_1.py
 # Gráfico poblacional de los países en sur américa según archivo csv descargado de kaggle.com
 python3 comprehensions-functions-errorhandler/app/challenge_2.py
 ```
+
+## Proyecto App
+Para instalar las dependencias, se hace de la siguiente manera:
+```sh
+cd app
+python3 -m venv env
+source env/bin/activate
+pip3 install -r requirements.txt
+python3 main.py
+```
+
+> Esto es fue editado desde [Editor.md](https://pandao.github.io/editor.md/en.html).
