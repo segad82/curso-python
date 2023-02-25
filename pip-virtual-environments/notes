@@ -1,0 +1,32 @@
+PIP Es el manejador de paquetes de python.
+Podemos ver los paquetes soportados, desde la página https://pypi.org/
+
+pip install <package name> -> Instala un paquete.
+pip install <package name>==<version number> -> Instala una versión de paquete específico.
+pip freeze -> Muestra el listado de librerias instaladas en el entorno general de python.
+
+Los ambientes virtuales permiten separar los paquetes instalados, para evitar problemas de dependencias entre proyectos.
+¿Desde donde se ejecuta python?
+which <command> -> Indica desde donde se ejecuta un comando.
+- which python3 | /usr/bin/python3 (ambiente global)
+- which pip3 | /usr/bin/pip3 (ambiente global)
+
+Para empezar a usar entornos virtuales, se debe instalar el siguiente paquete. [python3-venv]
+> sudo apt-get install -y python3-venv
+
+¿Qué proyectos tenemos?
+- app
+- charts
+
+Debemos crear un ambiente por cada proyecto. ¿Cómo se hace?
+1. Dentro de cada proyecto escribimos lo siguiente.
+> python3 -m venv <environment name> -> Crea el ambiente.
+2. Activamos el ambiente
+> source <environment name>/bin/activate -> Activa el ambiente
+3. Podemos desactivar un ambiente activo de la siguiente manera.
+> deactivate -> Desactiva el ambiente.
+
+Con el entorno activado y los paquetes instalados, se suele guardar la lista de estos en un archivo requirements.txt mediante el siguiente comando.
+> pip3 freeze > requirements.txt
+El nombre puede ser cualquiera, pero se usa ese por convención.
+Hacer esto sirve permite dejar instrucciones simples en README para que otros puedan preparar su entorno de python y colaborar en el proyecto.
