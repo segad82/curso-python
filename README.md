@@ -66,6 +66,15 @@ docker-compose up -d
 # Ingresamos a un contenedor por consola (bash). <service name> está definido en el archivo 'docker-compose.yml'
 docker-compose exec <service name> bash
 ```
+#### > Ejemplo: Proyecto App
+```sh
+git clone https://github.com/segad82/curso-python.git
+cd pip-virtual-environments/app
+systemctl --user start docker-desktop
+docker-compose build
+docker-compose up -d
+docker-compose exec app-csv bash
+```
 #### > Ejemplo: Proyecto Web Server
 ```sh
 git clone https://github.com/segad82/curso-python.git
@@ -73,6 +82,7 @@ cd pip-virtual-environments/web-server
 systemctl --user start docker-desktop
 docker-compose build
 docker-compose up -d
-docker-compose exec <service name> bash
+docker-compose ps
+firefox http://localhost:80/web
 ```
 > Esto fue editado desde [Editor.md](https://pandao.github.io/editor.md/en.html).
