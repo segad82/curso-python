@@ -1,0 +1,31 @@
+Curso Básico de Django
+
+Una vez creado y activado el entorno virtual, se instala django
+> pip3 install django
+Creamos el proyecto con django
+> django-admin startproject <project name>
+Ingresamos a la carpeta del proyecto
+> cd <project name>
+Levantamos el proyecto en servidor local
+> python3 manage.py runserver
+
+En Django, un proyecto es un conjunto de aplicaciones. (ejemplo)
+Instagram:
+ - Feed (Foto estados)
+ - Stories (Reels)
+ - Messages (Chat)
+ - ...
+ - ..
+ - .
+
+Premiso Platzi App:
+ - Polls (Encuentas)
+ - ...
+ - ..
+ - .
+
+ Podemos mover la aplicación de un proyecto a otro.
+
+ Para crear aplicaciones dendro del proyecto creado con django, se hace de la siguiente manera.
+ Dentro de la carpeta que creó django con el nombre del proyecto, escribimos.
+ > python3 manage.py startapp <app name>
