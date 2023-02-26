@@ -18,8 +18,8 @@ python3 comprehensions-functions-errorhandler/app/challenge_1.py
 python3 comprehensions-functions-errorhandler/app/challenge_2.py
 ```
 
-##Maneras de Trabajar con Python
-###Entornos Virtuales
+## Maneras de Trabajar con Python
+### Entornos Virtuales
 Permite generar espacios de trabajo por cada proyecto, donde las dependencias python se mantienen separadas, evitando conflicto de versiones sobre las dependencias de distintos proyectos.
 
 El paquete que nos permite trabajar con entornos virtuales de python es **python3-venv**.
