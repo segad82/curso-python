@@ -5,12 +5,19 @@ Curso Básico de Django
 ¿Cómo crear un proyecto con Django?
 
 1. Crear entorno virtual
+~/
 > python3 -m venv env
+
 2. Activar entorno virtual creado
+~/
 > source env/bin/activate
+
 3. Instalar Django
+~/
 > pip3 install django
+
 4. Creamos proyecto con Django
+~/
 > django-admin startproject <project name>
 
 Esto crea la siguinete estructura de archivos y carpetas:
@@ -23,9 +30,8 @@ Esto crea la siguinete estructura de archivos y carpetas:
         urls.py -> Contiene las rutas del proyecto django.
         wsgi.py -> ¿?
 
-5. Ingresamos a la carpeta del proyecto creado
-> cd <project name>
-6. Levantamos el servicio web del proyecto
+5. Levantamos el servicio web del proyecto
+~/<project name>/
 > python3 manage.py runserver
 
 En Django existen dos conceptos.
@@ -50,9 +56,8 @@ En Django existen dos conceptos.
 
 ¿Cómo crear una aplicacion en proyecto Djando?
 
-1. Ingresar a la carpeta raíz del proyecto
-> cd <project name>
-2. Crear aplicación django
+1. Crear aplicación django
+~/<project name>/
 > python3 manage.py startapp <app name>
 
 Esto crea la siguinete estructura de archivos y carpetas:
@@ -66,3 +71,50 @@ Esto crea la siguinete estructura de archivos y carpetas:
     migrations/ -> Almacena archivos de migración sobre el ORM.
 
 ##################################################
+
+¿Cómo crear el modelo ORM?
+
+1. Agregar en el siguiente archivo, las clases (POO) que representan las tablas en la base de datos
+~/<project name>/<app name>/models.py
+
+from django.db import models
+class Table_Name(models.Model):
+    str_column_name = models.CharField(max_length=50)
+    int_column_name = models.IntegerField(default=0)
+    foreign_key_column_name = models.ForeignKey(Table_FK_Name, on_delete=models.CASCADE)
+
+2. Agregar aplicación al siguiente archivo, en la sección aplicaciones instaladas
+~/<project name>/<project name>/settings.py
+
+INSTALLED_APPS = [
+    '<app name>.apps.<App Name>Config',
+    ...
+    ..
+    .
+]
+
+3. Generar archivo de migración relacionado a la aplicación
+~/<project name>/
+> python manage.py makemigrations <app name>
+
+4. Ejecutar archivos de migración generados (crea base de datos y tablas)
+~/<project name>/
+> python manage.py migrate
+
+##################################################
+
+¿Cómo podemos manipular el ORM en consola de python?
+
+1. Ejecutamos la consola de python mediante django
+~/<project name>/
+> python3 manage.py shell
+
+Importar modelo ORM
+># from <app name>.models import Table_Name
+
+Listar registros almacenados en la base de datos
+># Table_Name.objects.all()
+
+Agregar registro
+># x = Table_Name(column_name=value, ...)
+># x.save()
