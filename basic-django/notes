@@ -1,31 +1,68 @@
 Curso Básico de Django
 
-Una vez creado y activado el entorno virtual, se instala django
+##################################################
+
+¿Cómo crear un proyecto con Django?
+
+1. Crear entorno virtual
+> python3 -m venv env
+2. Activar entorno virtual creado
+> source env/bin/activate
+3. Instalar Django
 > pip3 install django
-Creamos el proyecto con django
+4. Creamos proyecto con Django
 > django-admin startproject <project name>
-Ingresamos a la carpeta del proyecto
+
+Esto crea la siguinete estructura de archivos y carpetas:
+<project name>/
+    manage.py -> Permite interactuar con los distintos comandos django.
+    <project name>/
+        __init__.py -> Permite tratar a la carpeta como un paquete en versiones anteriores de python.
+        asgi.py -> ¿?
+        settings.py -> Contiene toda la configuración del proyecto django.
+        urls.py -> Contiene las rutas del proyecto django.
+        wsgi.py -> ¿?
+
+5. Ingresamos a la carpeta del proyecto creado
 > cd <project name>
-Levantamos el proyecto en servidor local
+6. Levantamos el servicio web del proyecto
 > python3 manage.py runserver
 
-En Django, un proyecto es un conjunto de aplicaciones. (ejemplo)
-Instagram:
- - Feed (Foto estados)
- - Stories (Reels)
- - Messages (Chat)
- - ...
- - ..
- - .
+En Django existen dos conceptos.
+- Proyectos: Estructura principal y contenedora de aplicaciones.
+- Aplicaciones: Módulos de un proyecto. (ejemplo)
+                Podemos mover aplicaciones entre proyectos.
+    Instagram [project]:
+    - Feed (Foto estados) [app]
+    - Stories (Reels) [app]
+    - Messages (Chat) [app]
+    - ... [app]
+    - .. [app]
+    - . [app]
 
-Premiso Platzi App:
- - Polls (Encuentas)
- - ...
- - ..
- - .
+    Premiso Platzi App [project]:
+    - Polls (Encuentas) [app]
+    - ... [app]
+    - .. [app]
+    - . [app]
 
- Podemos mover la aplicación de un proyecto a otro.
+##################################################
 
- Para crear aplicaciones dendro del proyecto creado con django, se hace de la siguiente manera.
- Dentro de la carpeta que creó django con el nombre del proyecto, escribimos.
- > python3 manage.py startapp <app name>
+¿Cómo crear una aplicacion en proyecto Djando?
+
+1. Ingresar a la carpeta raíz del proyecto
+> cd <project name>
+2. Crear aplicación django
+> python3 manage.py startapp <app name>
+
+Esto crea la siguinete estructura de archivos y carpetas:
+<app name>/
+    __init__.py -> Permite tratar a la carpeta como un paquete en versiones anteriores de python.
+    admin.py -> ¿?
+    apps.py -> ¿?
+    models.py -> Contiene las clases del modelo ORM.
+    tests.py -> ¿?
+    views-> Contiene funciones que atienden solicitudes http.
+    migrations/ -> Almacena archivos de migración sobre el ORM.
+
+##################################################
