@@ -118,3 +118,46 @@ Listar registros almacenados en la base de datos
 Agregar registro
 ># x = Table_Name(column_name=value, ...)
 ># x.save()
+
+Consultar el registro con id = 1
+># Table_Name.objects.get(pk=1)
+
+Consultar registros de un año, sobre campo [date_column_name] de tipo datetime
+Al agregar doble guión bajo al final del campo, se accede a sus sub-atributos
+># from django.utils import timezone
+># Table_Name.objects.get(date_column_name__year=timezone.now().year)
+
+Consultar registros donde un campo de texto empiece con '¿Cual'
+># Table_Name.objects.filter(str_column_name__startswith="¿Cual")
+
+Métodos:
+- [get]: retorna un registro del ORM.
+- [filter]: retorna una lista de registros del ORM. <QuerySet>
+- [create]: crea un registro, indicando cómo parámetro, cada uno de los atributos de la tabla.
+- [count]: retorna la cantidad de registros.
+Subcampos de Búsqueda:
+- str[__startswith]: Empieza por
+- str[__endswith]: Termina por
+- str[__contains]: Contiene
+- str[__regex]: Expresión regular
+- str|int[__in]: Está en
+- int[__gt]: Mayor que
+- int[__gte]: Mayor o igual que
+- int[__lt]: Menor que
+- int[__lte]: Menor o igual que
+- any[__exact]: Exactamente
+- any[__isnull]: Es nulo
+- datetime[__year]: Año
+- datetime[__month]: Mes
+- datetime[__day]: Día
+- datetime[__week]: Semana
+- datetime[__week_day]: Día de la semana
+- datetime[__quarter]: Cuartíl
+- datetime[__time]: Tiempo
+- time[__hour]: Hora
+- time[__minute]: Minuto
+- time[__second]: Segundo
+Excepciones:
+- [DoesNotExist]: Ocurre cuando se intenta retornar un objeto que no existe.
+- [MultipleObjectsReturned]: Ocurre cuando la función retorna un solo registro y la condición reune más de un registro. ej. [get]
+
