@@ -77,11 +77,11 @@ Esto crea la siguinete estructura de archivos y carpetas:
 1. Agregar en el siguiente archivo, las clases (POO) que representan las tablas en la base de datos
 ~/<project name>/<app name>/models.py
 
-from django.db import models
-class Table_Name(models.Model):
-    str_column_name = models.CharField(max_length=50)
-    int_column_name = models.IntegerField(default=0)
-    foreign_key_column_name = models.ForeignKey(Table_FK_Name, on_delete=models.CASCADE)
+    from django.db import models
+    class Table_Name(models.Model):
+        str_column_name = models.CharField(max_length=50)
+        int_column_name = models.IntegerField(default=0)
+        foreign_key_column_name = models.ForeignKey(Table_FK_Name, on_delete=models.CASCADE)
 
 2. Agregar aplicación al siguiente archivo, en la sección aplicaciones instaladas
 ~/<project name>/<project name>/settings.py
@@ -95,11 +95,11 @@ INSTALLED_APPS = [
 
 3. Generar archivo de migración relacionado a la aplicación
 ~/<project name>/
-> python manage.py makemigrations <app name>
+> python3 manage.py makemigrations <app name>
 
 4. Ejecutar archivos de migración generados (crea base de datos y tablas)
 ~/<project name>/
-> python manage.py migrate
+> python3 manage.py migrate
 
 ##################################################
 
@@ -130,10 +130,19 @@ Al agregar doble guión bajo al final del campo, se accede a sus sub-atributos
 Consultar registros donde un campo de texto empiece con '¿Cual'
 ># Table_Name.objects.filter(str_column_name__startswith="¿Cual")
 
+Consultar subelementos de una llave foránea mediante su conjunto [_set].
+># x = Table_Name.objects.get(pk=1)
+># x.fk_table_name_set.all()
+
+Agregar subelementos de una llave foránea mediante su conjunto [_set].
+># x = Table_Name.objects.get(pk=1)
+># x.fk_table_name_set.create(column_name=value, ...)
+
 Métodos:
-- [get]: retorna un registro del ORM.
-- [filter]: retorna una lista de registros del ORM. <QuerySet>
-- [create]: crea un registro, indicando cómo parámetro, cada uno de los atributos de la tabla.
+- [all]: retorna todos los registros del objeto ORM.
+- [get]: retorna un registro del objeto ORM.
+- [filter]: retorna una lista de registros del objeto ORM. <QuerySet>
+- [create]: crea un registro, indicando cómo parámetro, cada uno de los atributos de la tabla con su respectivo valor.
 - [count]: retorna la cantidad de registros.
 Subcampos de Búsqueda:
 - str[__startswith]: Empieza por
@@ -161,3 +170,70 @@ Excepciones:
 - [DoesNotExist]: Ocurre cuando se intenta retornar un objeto que no existe.
 - [MultipleObjectsReturned]: Ocurre cuando la función retorna un solo registro y la condición reune más de un registro. ej. [get]
 
+##################################################
+
+Administrador de datos Django
+
+¿Cómo administrar datos de una entidad ORM?
+
+1. Registrar entidad ORM al administrador de la aplicación
+~/<project name>/<app name>/admin.py
+
+    from django.contrib import admin
+    from .models import Table_Name
+    admin.site.register(Table_Name)
+
+2. Crear super usuario en caso de no existir uno
+~/<project name>/
+> python3 manage.py createsuperuser
+
+3. Levantar servicio http
+~/<project name>/
+> python3 manage.py runserver
+
+4. Ingresar al administrador django e iniciar sesión con super usuario creado
+http://127.0.0.1:8000/admin
+
+5. Seleccionar entidad ORM para acceder a su mantenedor
+
+##################################################
+
+Patrón de diseño Django (MTV)
+
+- Model: Administra los datos y se usa mediante su interfaz ORM.
+- Template: Define cómo se mostrarán la información al navegador.
+- View: Decide qué información será mostrada y a trvés de qué plantilla. (Intermedidor entre Model y Template)
+
+   [Aplicaciones Web]         |           [Django Web]
+   Frontend   | Backend       |      Frontend   | Backend
+-------------------------     |    ------------------------
+- HTML        | - Django      |    - Templates  | - Views
+- CSS         | - Flask       |   
+- Javascript  | - FastAPI     |
+
+Las vistas son estructuras de python y se pueden dar de las siguientes formas:
+ - Funciones: Function Based Views
+ - Clases: Generic Views
+
+ ##################################################
+
+ ¿Cómo agregar plantillas?
+
+1. Crear carpeta 'templates' y supcarpeta de la aplicación
+~/<project name>/<app name>/
+> mkdir templates
+> cd templates
+> mkdir <app name>
+
+2. Crear archivo html plantilla
+~/<project name>/<app name>/templeates/<app name>/
+> touch index.html
+
+3. Agregar contenido al archivo html
+
+Nota: Para tener mejor usabilidad sobre las django templates con Visual Studio Code, hacemos lo siguiente.
+    1. Presionar [Ctrl] + [Shift] + [p]
+    2. Ingresar al archivo settings.json
+    3. Agregar al archivo lo siguiente
+        "emmet.includeLanguages": { "django-html": "html" } o "emmet.includeLanguages": { "html": "django-html" }
+    4. Instalar extención Django by 'Baptiste Darthenay' en Visual Studio Code
