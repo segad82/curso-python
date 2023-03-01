@@ -1,0 +1,34 @@
+{% comment %}
+<h2>{{ question.question_text }}</h2>
+<ul>
+    {% for choice in question.choice_set.all %}
+    <li>{{ choice.choice_text }}</li>
+    {% endfor %}
+</ul>
+{% endcomment %}
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+    {% comment %} 
+    Protección contra ataques CSRF
+    https://es.wikipedia.org/wiki/Cross-site_request_forgery 
+    {% endcomment %}
+    {% csrf_token %}
+    <fieldset>
+        <legend>
+            <h1>{{ question.question_text }}</h1>
+        </legend>
+        {% for choice in question.choice_set.all %}
+        {% comment %} 
+        forloop.counter: Atajo de django template system para acceder al número actual de vuelta que está teniendo el ciclo.
+        {% endcomment %}
+        <input 
+            type="radio" 
+            name="choice" 
+            id="choice{{ forloop.counter }}"
+            value="{{ choice.id }}">
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+        <br>
+        {% endfor %}
+    </fieldset>
+    <input type="submit" value="Votar">
+</form>

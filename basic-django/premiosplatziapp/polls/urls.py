@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+app_name = 'polls'
+
 urlpatterns = [
     # ex: ~/polls/ => Estás en la página principal de Premios Platzi App
     path('', views.index, name='index'),
