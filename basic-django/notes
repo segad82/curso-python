@@ -25,7 +25,7 @@ Esto crea la siguinete estructura de archivos y carpetas:
     manage.py -> Permite interactuar con los distintos comandos django.
     <project name>/
         __init__.py -> Permite tratar a la carpeta como un paquete en versiones anteriores de python.
-        asgi.py -> ¿?
+        asgi.py -> Permite conectar proyecto a un servidor una vez realizado deploy.
         settings.py -> Contiene toda la configuración del proyecto django.
         urls.py -> Contiene las rutas del proyecto django.
         wsgi.py -> ¿?
@@ -144,6 +144,7 @@ Métodos:
 - [filter]: retorna una lista de registros del objeto ORM. <QuerySet>
 - [create]: crea un registro, indicando cómo parámetro, cada uno de los atributos de la tabla con su respectivo valor.
 - [count]: retorna la cantidad de registros.
+- [order_by]: retorna una lista de registros del objeto ORM de manera ordenada. | order_by("column_name")
 Subcampos de Búsqueda:
 - str[__startswith]: Empieza por
 - str[__endswith]: Termina por
@@ -217,7 +218,7 @@ Las vistas son estructuras de python y se pueden dar de las siguientes formas:
 
  ##################################################
 
- ¿Cómo agregar plantillas?
+ ¿Cómo agregar plantillas mediante Function Based Views?
 
 1. Crear carpeta 'templates' y supcarpeta de la aplicación
 ~/<project name>/<app name>/
@@ -225,11 +226,18 @@ Las vistas son estructuras de python y se pueden dar de las siguientes formas:
 > cd templates
 > mkdir <app name>
 
-2. Crear archivo html plantilla
-~/<project name>/<app name>/templeates/<app name>/
-> touch index.html
+2. Crear plantilla html
+~/<project name>/<app name>/templeates/<app name>/index.html (ejemplo)
 
-3. Agregar contenido al archivo html
+3. Renderizar plantilla html
+~/<project name>/<app name>/views.py
+    
+    from django.shortcuts import render
+    def index(request):
+        return render(request, '<app name>/index.html', { parameters, ... })
+
+4. Ingresar a ...
+http://127.0.0.1:8000/<app name>/
 
 Nota: Para tener mejor usabilidad sobre las django templates con Visual Studio Code, hacemos lo siguiente.
     1. Presionar [Ctrl] + [Shift] + [p]
@@ -237,3 +245,9 @@ Nota: Para tener mejor usabilidad sobre las django templates con Visual Studio C
     3. Agregar al archivo lo siguiente
         "emmet.includeLanguages": { "django-html": "html" } o "emmet.includeLanguages": { "html": "django-html" }
     4. Instalar extención Django by 'Baptiste Darthenay' en Visual Studio Code
+
+##################################################
+
+¿Cómo agregar plantillas mediante Generic Views?
+
+https://ccbv.co.uk/
