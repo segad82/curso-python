@@ -3,13 +3,11 @@
 ## PIP
 Es el manejador de paquetes de python. (ver paquetes soportados [aquí](https://pypi.org/))
 
-```python
+```sh
 # Instala un paquete python.
 pip install <package name>
-
 # Instala una versión de paquete python en específico.
 pip install <package name>==<version number>
-
 # Muestra el listado de librerias python instaladas.
 pip freeze
 ```
@@ -20,10 +18,9 @@ Al instalar python, automaticamente se crea un entorno global donde se puede emp
 Esto significa un problema ya que pueden existir conflictos de dependencias entre proyectos de la misma máquina.
 
 Considerar que.
-```python
+```sh
 # Este comando nos indica desde donde se ejecuta otro comando.
 which <command>
- 
 # Podemos revisar desde donde ejecuta python o pip
 which python3 # /usr/bin/python3 (ambiente global)
 which pip3 # /usr/bin/pip3 (ambiente global)
