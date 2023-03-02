@@ -217,7 +217,7 @@ Las vistas son estructuras de python y se pueden dar de las siguientes formas:
 
  ##################################################
 
- ¿Cómo agregar plantillas?
+ ¿Cómo agregar plantillas como vistas?
 
 1. Crear carpeta 'templates' y supcarpeta de la aplicación
 ~/<project name>/<app name>/
@@ -225,15 +225,91 @@ Las vistas son estructuras de python y se pueden dar de las siguientes formas:
 > cd templates
 > mkdir <app name>
 
-2. Crear archivo html plantilla
-~/<project name>/<app name>/templeates/<app name>/
-> touch index.html
+2. Crear plantilla html (consultar lenguaje django-html)
+~/<project name>/<app name>/templeates/<app name>/index.html (ejemplo)
 
-3. Agregar contenido al archivo html
+3. Agregar funcion a la vista de la aplicación que atienda la solicitud http
+~/<project name>/<app name>/views.py
+
+    from django.shortcuts import render
+    from django.http import HttpResponse
+    def index(request):
+        return render(request, '<app name>/index.html', { parameter: value })
+    def index_with_parameter(request, parameter):
+        return HttpResponse(f"El parámetro es: {parameter}")
+
+4. Agregar url a la aplicación.
+~/<project name>/<app name>/urls.py
+
+    from django.urls import path
+    from . import views
+    urlpatterns = [
+        path('', views.index, name='index'),
+        path('<str:parameter>/', views.index_with_parameter, name='index_with_parameter'),
+        ...
+        ..
+        .
+    ]
+
+5. Agregar las url de la aplicación al proyecto
+~/<project name>/<project name>/urls.py
+
+    from django.urls import path, include
+    urlpatterns = [
+        path('<app name>/', include('<app name>.urls')),
+        ...
+        ..
+        .
+    ]
+
+6. Ingresar a la url desde el navegador
+http://127.0.0.1:8000/<app name>
 
 Nota: Para tener mejor usabilidad sobre las django templates con Visual Studio Code, hacemos lo siguiente.
-    1. Presionar [Ctrl] + [Shift] + [p]
-    2. Ingresar al archivo settings.json
+    1. En Visual Studio Code, presionar [Ctrl] + [Shift] + [p]
+    2. En la barra, escribir settings.json e ingresar a él
     3. Agregar al archivo lo siguiente
         "emmet.includeLanguages": { "django-html": "html" } o "emmet.includeLanguages": { "html": "django-html" }
     4. Instalar extención Django by 'Baptiste Darthenay' en Visual Studio Code
+
+##################################################
+
+¿Cómo escalar error 404 en las vistas?
+
+1. Desde la vista de la aplicación, importar función [get_object_or_404] de [django.shortcuts]
+~/<project name>/<app name>/views.py
+
+from django.shortcuts import render, get_object_or_404
+from .models import Table_Name
+def index_with_parameter(request, parameter):
+    object = get_object_or_404(Table_Name, pk=parameter)
+    return render(request, 'polls/file.html', { 'object': object })
+
+##################################################
+
+Mejorar el manejo de urls en plantillas
+
+1. Desde las urls de la aplicación, definir la variable [app_name] con el nombre de la aplicación.
+~/<project name>/<app name>/urls.py
+
+    from django.urls import path
+    from . import views
+    app_name = '<app name>'
+    urlpatterns = [ 
+        path('url', views.function_name, name='url_name'),
+        path('<str:parameter>/', views.function_with_parameter, name='url_with_parameter'),
+        ...
+        ..
+        .
+    ]
+
+2. Invocar url mediante su nombre
+~/<project name>/<app name>/templates/<app name>/file.html
+
+    <a href="{% url '<app_name>:<url_name>' %}">
+    <a href="{% url '<app_name>:<url_with_parameter>' parameter %}">
+
+Para mayor información sobre el lenguaje de plantillas django.
+https://docs.djangoproject.com/en/4.0/ref/templates/language/
+https://docs.djangoproject.com/en/4.0/ref/templates/builtins/
+
