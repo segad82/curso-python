@@ -1,36 +1,31 @@
 # [Curso Básico de Django](https://platzi.com/cursos/django/)
 Es un framework de desarrollo web de código abierto escrito en python que respeta el patrón de diseño de software MCV.
 ## ¿Cómo crear un proyecto con Django?
-```python
+```shell
+# ~/
+
 # 1. Crear entorno virtual
-# ~/
 python3 -m venv env
-
 # 2. Activar entorno virtual creado
-# ~/
 source env/bin/activate
-
 # 3. Instalar Django
-# ~/
 pip3 install django
-
 # 4. Creamos proyecto con Django
-# ~/
 django-admin startproject <project name>
 ```
 Esto crea la siguinete estructura de archivos y carpetas:
-+ `~/[project name]/`
++ `~/<project name>/`
 	+ `manage.py` Permite interactuar con los distintos comandos django.
-	+ `[project name]/`
+	+ `<project name>/`
 		+ `__init__.py` Permite tratar a la carpeta como un paquete en versiones anteriores de python.
 		+ `asgi.py` Permite conectar proyecto a un servidor una vez realizado deploy.
 		+ `settings.py` Contiene toda la configuración del proyecto django.
 		+ `urls.py` Contiene las rutas del proyecto django.
 		+ `wsgi.py` ¿?
 
-```python
+```shell
+# ~/<project name>/
 # 5. Levantamos el servicio web del proyecto
-# ~/[project name]/
 python3 manage.py runserver
 ```
 
@@ -86,13 +81,13 @@ Las vistas son estructuras de python y se pueden dar de las siguientes formas:
 
 ### ¿Cómo crear una aplicacion en proyecto Djando?
 
-```python
+```shell
+# ~/<project name>/
 # 1. Crear aplicación django
-# ~/[project name]/
 python3 manage.py startapp <app name>
 ```
 Esto crea la siguinete estructura de archivos y carpetas:
-+ `~/[project name]/[app name]/`
++ `~/<project name>/<app name>`
 	+ `__init__.py` Permite tratar a la carpeta como un paquete en versiones anteriores de python.
 	+ `admin.py` ¿?
 	+ `apps.py` ¿?
@@ -105,7 +100,7 @@ Esto crea la siguinete estructura de archivos y carpetas:
 
 ```python
 # 1. Agregar en el siguiente archivo, las clases (POO) que representan las tablas en la base de datos
-# ~/[project name]/[app name]/models.py
+# ~/<project name>/<app name>/models.py
 from django.db import models
 
 class Table_Name(models.Model):
@@ -121,22 +116,25 @@ INSTALLED_APPS = [
 	..
 	.
 ]
+```
+```shell
+# ~/<project name>/
 
 # 3. Generar archivo de migración relacionado a la aplicación
-# ~/<project name>/
 python3 manage.py makemigrations <app name>
-
 # 4. Ejecutar archivos de migración generados (crea base de datos y tablas)
 # ~/<project name>/
 python3 manage.py migrate
 ```
 
 ### ¿Cómo podemos manipular el ORM en consola de python?
-```python
-# 1. Ejecutamos la consola de python mediante django
+```shell
 # ~/<project name>/
-python3 manage.py shell
 
+# 1. Ejecutamos la consola de python mediante django
+python3 manage.py shell
+```
+```python
 # Importar modelo ORM
 > from <app name>.models import Table_Name
 
@@ -209,31 +207,30 @@ from django.contrib import admin
 from .models import Table_Name
 
 admin.site.register(Table_Name)
+```
+```shell
+# ~/<project name>/
 
 # 2. Crear super usuario en caso de no existir uno
-# ~/<project name>/
 python3 manage.py createsuperuser
-
 # 3. Levantar servicio http
-# ~/<project name>/
 python3 manage.py runserver
-
 # 4. Ingresar al administrador django e iniciar sesión con super usuario creado
 http://127.0.0.1:8000/admin
-
 # 5. Seleccionar entidad ORM para acceder a su mantenedor
 ```
  ### ¿Cómo agregar plantillas mediante Function Based Views?
-```python
-# 1. Crear carpeta 'templates' y supcarpeta de la aplicación
+```shell
 # ~/<project name>/<app name>/
+
+# 1. Crear carpeta 'templates' y supcarpeta de la aplicación
 mkdir templates
 cd templates
 mkdir <app name>
-
 # 2. Crear plantilla html (consultar lenguaje django-html)
 # ~/<project name>/<app name>/templeates/<app name>/index.html (ejemplo)
-
+```
+```python
 # 3. Agregar funcion a la vista de la aplicación que atienda la solicitud http
 # ~/<project name>/<app name>/views.py
 from django.shortcuts import render
@@ -304,7 +301,8 @@ urlpatterns = [
 	..
 	.
 ]
-
+```
+```html
 # 2. Invocar url mediante su nombre
 # ~/<project name>/<app name>/templates/<app name>/file.html
 <a href="{% url '<app_name>:<url_name>' %}">
@@ -315,16 +313,17 @@ https://docs.djangoproject.com/en/4.0/ref/templates/language/
 https://docs.djangoproject.com/en/4.0/ref/templates/builtins/
 
 ### [¿Cómo agregar plantillas mediante Generic Views?](https://ccbv.co.uk/)
-```python
-# 1. Crear carpeta 'templates' y supcarpeta de la aplicación en caso de no existir
+```shell
 # ~/<project name>/<app name>/
+
+# 1. Crear carpeta 'templates' y supcarpeta de la aplicación en caso de no existir
 mkdir templates
 cd templates
 mkdir <app name>
-
 # 2. Crear plantilla html (consultar lenguaje django-html)
 # ~/<project name>/<app name>/templeates/<app name>/index.html (ejemplo)
-
+```
+```python
 # 3. Agregar funcion a la vista de la aplicación que atienda la solicitud http
 # ~/<project name>/<app name>/views.py
 from django.views import generic
@@ -365,3 +364,5 @@ urlpatterns = [
 # 6. Ingresar a la url desde el navegador
 http://127.0.0.1:8000/<app name>
 ```
+
+> Esto fue editado desde [Editor.md](https://pandao.github.io/editor.md/en.html).
