@@ -1,7 +1,7 @@
 # [Curso Básico de Django](https://platzi.com/cursos/django/)
 Es un framework de desarrollo web de código abierto escrito en python que respeta el patrón de diseño de software MCV.
 ## ¿Cómo crear un proyecto con Django?
-```shell
+```sh
 # ~/
 
 # 1. Crear entorno virtual
@@ -23,7 +23,7 @@ Esto crea la siguinete estructura de archivos y carpetas:
 		+ `urls.py` Contiene las rutas del proyecto django.
 		+ `wsgi.py` ¿?
 
-```shell
+```sh
 # ~/<project name>/
 # 5. Levantamos el servicio web del proyecto
 python3 manage.py runserver
@@ -81,7 +81,7 @@ Las vistas son estructuras de python y se pueden dar de las siguientes formas:
 
 ### ¿Cómo crear una aplicacion en proyecto Djando?
 
-```shell
+```sh
 # ~/<project name>/
 # 1. Crear aplicación django
 python3 manage.py startapp <app name>
@@ -117,7 +117,7 @@ INSTALLED_APPS = [
 	.
 ]
 ```
-```shell
+```sh
 # ~/<project name>/
 
 # 3. Generar archivo de migración relacionado a la aplicación
@@ -128,7 +128,7 @@ python3 manage.py migrate
 ```
 
 ### ¿Cómo podemos manipular el ORM en consola de python?
-```shell
+```sh
 # ~/<project name>/
 
 # 1. Ejecutamos la consola de python mediante django
@@ -208,7 +208,7 @@ from .models import Table_Name
 
 admin.site.register(Table_Name)
 ```
-```shell
+```sh
 # ~/<project name>/
 
 # 2. Crear super usuario en caso de no existir uno
@@ -220,7 +220,7 @@ http://127.0.0.1:8000/admin
 # 5. Seleccionar entidad ORM para acceder a su mantenedor
 ```
  ### ¿Cómo agregar plantillas mediante Function Based Views?
-```shell
+```sh
 # ~/<project name>/<app name>/
 
 # 1. Crear carpeta 'templates' y supcarpeta de la aplicación
@@ -313,7 +313,7 @@ https://docs.djangoproject.com/en/4.0/ref/templates/language/
 https://docs.djangoproject.com/en/4.0/ref/templates/builtins/
 
 ### [¿Cómo agregar plantillas mediante Generic Views?](https://ccbv.co.uk/)
-```shell
+```sh
 # ~/<project name>/<app name>/
 
 # 1. Crear carpeta 'templates' y supcarpeta de la aplicación en caso de no existir
