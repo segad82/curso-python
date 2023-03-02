@@ -17,6 +17,9 @@
         <legend>
             <h1>{{ question.question_text }}</h1>
         </legend>
+        {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+        {% endif %}
         {% for choice in question.choice_set.all %}
         {% comment %} 
         forloop.counter: Atajo de django template system para acceder al número actual de vuelta que está teniendo el ciclo.

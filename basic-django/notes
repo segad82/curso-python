@@ -25,7 +25,7 @@ Esto crea la siguinete estructura de archivos y carpetas:
     manage.py -> Permite interactuar con los distintos comandos django.
     <project name>/
         __init__.py -> Permite tratar a la carpeta como un paquete en versiones anteriores de python.
-        asgi.py -> ¿?
+        asgi.py -> Permite conectar proyecto a un servidor una vez realizado deploy.
         settings.py -> Contiene toda la configuración del proyecto django.
         urls.py -> Contiene las rutas del proyecto django.
         wsgi.py -> ¿?
@@ -144,6 +144,7 @@ Métodos:
 - [filter]: retorna una lista de registros del objeto ORM. <QuerySet>
 - [create]: crea un registro, indicando cómo parámetro, cada uno de los atributos de la tabla con su respectivo valor.
 - [count]: retorna la cantidad de registros.
+- [order_by]: retorna una lista de registros del objeto ORM de manera ordenada. | order_by("column_name")
 Subcampos de Búsqueda:
 - str[__startswith]: Empieza por
 - str[__endswith]: Termina por
@@ -217,7 +218,7 @@ Las vistas son estructuras de python y se pueden dar de las siguientes formas:
 
  ##################################################
 
- ¿Cómo agregar plantillas como vistas?
+ ¿Cómo agregar plantillas mediante Function Based Views?
 
 1. Crear carpeta 'templates' y supcarpeta de la aplicación
 ~/<project name>/<app name>/
@@ -313,3 +314,58 @@ Para mayor información sobre el lenguaje de plantillas django.
 https://docs.djangoproject.com/en/4.0/ref/templates/language/
 https://docs.djangoproject.com/en/4.0/ref/templates/builtins/
 
+##################################################
+
+¿Cómo agregar plantillas mediante Generic Views?
+
+https://ccbv.co.uk/
+
+1. Crear carpeta 'templates' y supcarpeta de la aplicación en caso de no existir
+~/<project name>/<app name>/
+> mkdir templates
+> cd templates
+> mkdir <app name>
+
+2. Crear plantilla html (consultar lenguaje django-html)
+~/<project name>/<app name>/templeates/<app name>/index.html (ejemplo)
+
+3. Agregar funcion a la vista de la aplicación que atienda la solicitud http
+~/<project name>/<app name>/views.py
+
+    from django.views import generic
+    from .models import Table_Name
+    class IndexView(generic.ListView):
+        template_name = '<app name>/index.html'
+        context_object_name = 'parameter_name'
+        def get_queryset(self):
+            return Table_Name.objects.all()
+    class CustomDetailView(generic.DetailView):
+        model = Table_Name
+        template_name = '<app name>/file.html'
+
+4. Agregar url a la aplicación.
+~/<project name>/<app name>/urls.py
+
+    from django.urls import path
+    from . import views
+    urlpatterns = [
+        path('', views.IndexView.as_view(), name='index'),
+        path('<str:column_name>/', views.CustomDetailView.as_view(), name='custom_detail'),
+        ...
+        ..
+        .
+    ]
+
+5. Agregar las url de la aplicación al proyecto
+~/<project name>/<project name>/urls.py
+
+    from django.urls import path, include
+    urlpatterns = [
+        path('<app name>/', include('<app name>.urls')),
+        ...
+        ..
+        .
+    ]
+
+6. Ingresar a la url desde el navegador
+http://127.0.0.1:8000/<app name>
